@@ -124,6 +124,57 @@ def predict_at_date():
         print(f"Error during prediction: {e}")
         return jsonify({"error": f"타임머신 예측 중 오류 발생: {str(e)}"}), 500
 
+import json # 파일 상단에 import 되어있는지 확인, 없다면 추가
+
+# --- 새로운 API: 최신 예보 데이터 전송 ---
+LATEST_FORECAST_PATH = 'latest_forecast.json'
+
+@app.route("/api/latest")
+def get_latest_forecast():
+    """
+    미리 계산된 최신 예보 JSON 파일을 읽어 그대로 반환합니다.
+    데이터베이스 조회나 AI 예측 없이 매우 빠르게 동작합니다.
+    """
+    try:
+        # with open으로 파일을 열면 자동으로 닫아주어 안전합니다.
+        with open(LATEST_FORECAST_PATH, 'r', encoding='utf-8') as f:
+            latest_data = json.load(f)
+        
+        # 프론트엔드가 사용하는 데이터 형식과 맞추기 위해 키 이름을 변경합니다.
+        # latest_forecast.json의 'update_time' -> 'analyzed_month'
+        # 'update_time'이 'YYYY-MM-DD HH:MM:SS' 형식이므로 'YYYY-MM'으로 잘라줍니다.
+        update_time_str = latest_data.get('update_time', '')
+        if update_time_str:
+            # datetime 객체로 변환했다가 다시 원하는 형식으로 포맷팅합니다.
+            analyzed_dt = datetime.strptime(update_time_str, '%Y-%m-%d %H:%M:%S')
+            # 해당 월의 예측이므로, 해당 월을 기준으로 표시합니다.
+            # 예: 2024-05-15에 생성되었으면, 2024년 6월 예측이므로 2024-06이 분석 대상 월.
+            # 하지만 run_daily_forecast.py 로직 상 마지막 달을 기준으로 하므로,
+            # 생성된 날짜의 월을 분석 월로 봐도 무방합니다. 여기서는 단순하게 YYYY-MM으로 자릅니다.
+            latest_data['analyzed_month'] = analyzed_dt.strftime('%Y-%m')
+        else:
+            latest_data['analyzed_month'] = "N/A"
+            
+        # 'update_time' 키는 프론트엔드에서 사용하지 않으므로 제거하거나 그대로 둬도 됩니다.
+        # 일관성을 위해 제거하는 것이 더 깔끔할 수 있습니다.
+        if 'update_time' in latest_data:
+            del latest_data['update_time']
+            
+        # 프론트엔드에서 actual_quakes 키를 기대하므로, 빈 리스트를 추가해줍니다.
+        # 최신 예보는 '미래'를 예측하는 것이므로 '실제 발생 지진'은 아직 없습니다.
+        if 'actual_quakes' not in latest_data:
+            latest_data['actual_quakes'] = []
+
+        return jsonify(latest_data)
+        
+    except FileNotFoundError:
+        # latest_forecast.json 파일이 아직 생성되지 않은 경우
+        return jsonify({"error": "최신 예보 데이터가 아직 준비되지 않았습니다. 잠시 후 다시 시도해주세요."}), 404
+    except Exception as e:
+        # 파일은 있으나 JSON 형식이 잘못되었거나 다른 오류가 발생한 경우
+        print(f"Error reading latest forecast file: {e}")
+        return jsonify({"error": "최신 예보 데이터를 읽는 중 오류가 발생했습니다."}), 500
+
 # --- 3. 서버 실행 ---
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=False)
