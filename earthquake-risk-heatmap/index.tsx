@@ -26,21 +26,20 @@ interface ActualQuake {
 }
 
 interface ApiResponse {
-    update_time: string;
+    analyzed_month: string; // Changed from update_time
     forecasts: ForecastItem[];
     actual_quakes: ActualQuake[];
 }
 
 // --- Configuration ---
-const API_BASE_URL = '/api/predict_at'; // New API endpoint
+const API_BASE_URL = '/api/predict_at';
 const MAP_CENTER_JAPAN: L.LatLngTuple = [36.2048, 138.2529];
 const INITIAL_ZOOM_LEVEL = 5;
 
 // --- Global Variables ---
 let mapInstance: L.Map | null = null;
-let updateTimeElement: HTMLElement | null = null;
-let yearSelectElement: HTMLSelectElement | null = null;
-let monthSelectElement: HTMLSelectElement | null = null;
+let analysisMonthElement: HTMLElement | null = null; // Renamed from updateTimeElement
+let monthPickerElement: HTMLInputElement | null = null; // New month picker
 let predictButtonElement: HTMLButtonElement | null = null;
 
 let gridLayerGroup: L.LayerGroup | null = null;
@@ -57,7 +56,7 @@ function getRiskColor(probability: number): string {
     if (probability > 60) return '#BD0026';
     if (probability > 40) return '#E31A1C';
     if (probability > 20) return '#FED976';
-    return '#ADFF2F';
+    return '#ADFF2F'; // Light green for low risk
 }
 
 /**
@@ -76,43 +75,6 @@ function getActualQuakeColor(depth: number): string {
 function getActualQuakeRadius(magnitude: number): number {
     return Math.max(4, magnitude * 2.5); // Min radius 4
 }
-
-
-/**
- * Populates the year select dropdown.
- * @param defaultYear - The year to be selected by default.
- */
-function populateYearSelect(defaultYear: number): void {
-    if (!yearSelectElement) return;
-    const currentYear = new Date().getFullYear();
-    for (let year = currentYear; year >= 2000; year--) {
-        const option = document.createElement('option');
-        option.value = String(year);
-        option.textContent = `${year}년`;
-        if (year === defaultYear) {
-            option.selected = true;
-        }
-        yearSelectElement.appendChild(option);
-    }
-}
-
-/**
- * Populates the month select dropdown.
- * @param defaultMonth - The month (1-12) to be selected by default.
- */
-function populateMonthSelect(defaultMonth: number): void {
-    if (!monthSelectElement) return;
-    for (let month = 1; month <= 12; month++) {
-        const option = document.createElement('option');
-        option.value = String(month).padStart(2, '0');
-        option.textContent = `${month}월`;
-        if (month === defaultMonth) {
-            option.selected = true;
-        }
-        monthSelectElement.appendChild(option);
-    }
-}
-
 
 /**
  * Initializes the Leaflet map.
@@ -140,7 +102,7 @@ function addRiskLegend(): void {
     }
     legendControl = new L.Control({ position: 'bottomright' });
     legendControl.onAdd = function () {
-        const div = L.DomUtil.create('div', 'info legend legend-risk');
+        const div = L.DomUtil.create('div', 'legend legend-risk'); // Removed 'info' class
         const gradesInfo = [
             { probability: '> 80%', color: getRiskColor(81) },
             { probability: '60% - 80%', color: getRiskColor(61) },
@@ -173,16 +135,14 @@ async function fetchPredictionData(dateString: string): Promise<ApiResponse | nu
         }
         const data: ApiResponse = await response.json();
 
-        if (updateTimeElement) {
-            const date = new Date(data.update_time);
-            const formattedTime = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:${String(date.getSeconds()).padStart(2, '0')}`;
-            updateTimeElement.textContent = `데이터 기준 시각: ${formattedTime}`;
+        if (analysisMonthElement) {
+            analysisMonthElement.textContent = `분석 대상 월: ${data.analyzed_month}`;
         }
         return data;
     } catch (error) {
         console.error('Error fetching prediction data:', error);
-        if (updateTimeElement) {
-            updateTimeElement.textContent = `데이터 로딩 오류 (${dateString}).`;
+        if (analysisMonthElement) {
+            analysisMonthElement.textContent = `분석 월 데이터 로딩 오류 (${dateString}).`;
         }
         return null;
     }
@@ -292,37 +252,42 @@ async function refreshMapData(dateString: string): Promise<void> {
 
 // --- Application Entry Point ---
 document.addEventListener('DOMContentLoaded', () => {
-    updateTimeElement = document.getElementById('update-time') as HTMLElement;
-    yearSelectElement = document.getElementById('year-select') as HTMLSelectElement;
-    monthSelectElement = document.getElementById('month-select') as HTMLSelectElement;
+    analysisMonthElement = document.getElementById('analysis-month') as HTMLElement;
+    monthPickerElement = document.getElementById('month-picker') as HTMLInputElement;
     predictButtonElement = document.getElementById('predict-button') as HTMLButtonElement;
 
     initializeMap();
     if (mapInstance) {
-        addRiskLegend();
+        addRiskLegend(); // Add legend after map initialization
     }
 
     // Determine initial date (one month ago)
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
     const initialYear = oneMonthAgo.getFullYear();
-    const initialMonth = oneMonthAgo.getMonth() + 1; // 1-12
+    const initialMonth = oneMonthAgo.getMonth() + 1; // getMonth() is 0-indexed
+    const initialDateString = `${initialYear}-${String(initialMonth).padStart(2, '0')}`;
 
-    populateYearSelect(initialYear);
-    populateMonthSelect(initialMonth);
+    if (monthPickerElement) {
+        monthPickerElement.value = initialDateString; // Set default value for month picker
+    }
 
     // Initial data load for one month ago
-    const initialDateString = `${initialYear}-${String(initialMonth).padStart(2, '0')}`;
     refreshMapData(initialDateString);
 
     // Event listener for the predict button
-    if (predictButtonElement) {
+    if (predictButtonElement && monthPickerElement) {
         predictButtonElement.addEventListener('click', () => {
-            if (yearSelectElement && monthSelectElement) {
-                const selectedYear = yearSelectElement.value;
-                const selectedMonth = monthSelectElement.value;
-                const dateString = `${selectedYear}-${selectedMonth}`;
-                refreshMapData(dateString);
+            if (monthPickerElement) { // Ensure element exists
+                const selectedDate = monthPickerElement.value; // Value is YYYY-MM
+                if (selectedDate) { // Check if a date is selected
+                    refreshMapData(selectedDate);
+                } else {
+                    console.warn('Month picker has no value selected.');
+                    if(analysisMonthElement) {
+                        analysisMonthElement.textContent = '분석 월을 선택해주세요.';
+                    }
+                }
             }
         });
     }

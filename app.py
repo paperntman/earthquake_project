@@ -113,7 +113,7 @@ def predict_at_date():
             })
             
         response_data = {
-            "update_time": target_month_end.strftime("%Y-%m-%d %H:%M:%S"),
+            "analyzed_month": target_month_str, # 'update_time' 대신 '분석된 월'을 명확히 전달
             "forecasts": forecast_list,
             "actual_quakes": actual_quakes
         }

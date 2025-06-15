@@ -34,19 +34,19 @@ body {
 }
 
 .info-panel h1 {
-    margin: 0;
+    margin: 0 0 5px 0; /* Adjusted margin */
     font-size: 1.6em;
     color: #2c3e50; /* Darker blue */
     font-weight: 600;
 }
 
 .info-panel p {
-    margin: 0;
+    margin: 5px 0 0 0; /* Adjusted margin */
     font-size: 0.9em;
     color: #555;
 }
 
-#update-time {
+#analysis-month { /* Updated ID */
     font-weight: 500;
     color: #34495e; /* Slightly darker grey */
 }
@@ -62,9 +62,11 @@ body {
 .time-controls label {
     font-size: 0.9em;
     color: #333;
+    margin-right: -5px; /* Adjust spacing next to input */
 }
 
-.time-controls select,
+.time-controls input[type="month"],
+.time-controls select, /* Keep select for potential future use or consistency */
 .time-controls button {
     padding: 6px 10px;
     border: 1px solid #ccc;
@@ -72,8 +74,15 @@ body {
     font-size: 0.9em;
     background-color: #fff;
     cursor: pointer;
+    font-family: inherit; /* Ensure font consistency */
 }
 
+.time-controls input[type="month"] {
+    min-width: 130px; /* Provide a decent minimum width for month picker */
+}
+
+
+.time-controls input[type="month"]:focus,
 .time-controls select:focus,
 .time-controls button:focus {
     outline: none;
@@ -102,17 +111,17 @@ body {
 .legend {
     padding: 8px 12px;
     font: 12px/1.5 Arial, Helvetica, sans-serif;
-    background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.95); /* Slightly more opaque background */
     box-shadow: 0 1px 5px rgba(0,0,0,0.2);
     border-radius: 5px;
-    line-height: 18px; /* Adjusted for better spacing */
-    color: #444;
+    line-height: 20px; /* Adjusted for better spacing with icons */
+    color: #333; /* Darker text for better contrast */
     z-index: 1000;
 }
 
 .legend h4 {
     margin: 0 0 8px;
-    color: #2c3e50; /* Match panel title color */
+    color: #2c3e50;
     font-size: 1.1em;
     text-align: center;
     font-weight: 600;
@@ -123,6 +132,6 @@ body {
     height: 18px;
     float: left;
     margin-right: 8px;
-    border: 1px solid #bbb; /* Slightly darker border for i */
-    opacity: 0.75; /* Slightly increased opacity */
+    border: 1px solid #999; /* Slightly darker border for the color swatch */
+    opacity: 0.9; /* Make colors slightly more vibrant */
 }
