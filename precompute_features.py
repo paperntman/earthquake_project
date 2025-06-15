@@ -68,10 +68,9 @@ def run_precomputation():
             feature_rows.append(new_row)
 
     final_features_df = pd.DataFrame(feature_rows)
-    final_features_df = final_features_df.dropna(subset=['b_value']).copy()
+    # 🚨 여기가 수정된 부분: b_value가 NaN이어도 버리지 않고, 경과일만 채운다!
     final_features_df['days_since_last_quake'].fillna(9999, inplace=True)
     
-    # 날짜 형식을 DB에 저장하기 좋게 문자열로 변환
     final_features_df['time'] = final_features_df['time'].dt.strftime('%Y-%m-%d')
     
     # --- 5. 데이터베이스에 저장 ---

@@ -73,6 +73,10 @@ def predict_at_date():
         
         # 4. AI 예측 실행
         features_to_scale = ['count', 'mean', 'count_3m_avg', 'count_6m_avg', 'count_12m_avg', 'b_value', 'days_since_last_quake']
+        
+        # 🚨 여기가 추가된 부분: 예측에 사용할 특징들의 빈 값을 0으로 채운다.
+        features_df[features_to_scale] = features_df[features_to_scale].fillna(0)
+        
         predict_data = features_df.groupby('grid_id').filter(lambda x: len(x) == SEQUENCE_LENGTH)
         grid_ids_to_predict = predict_data['grid_id'].unique()
         
