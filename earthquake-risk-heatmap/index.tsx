@@ -26,21 +26,23 @@ interface ActualQuake {
 }
 
 interface ApiResponse {
-    analyzed_month: string; // Changed from update_time
+    analyzed_month: string;
     forecasts: ForecastItem[];
     actual_quakes: ActualQuake[];
 }
 
 // --- Configuration ---
-const API_BASE_URL = '/api/predict_at';
+const API_BASE_URL_PREDICT_AT = '/api/predict_at';
+const API_BASE_URL_LATEST = '/api/latest';
 const MAP_CENTER_JAPAN: L.LatLngTuple = [36.2048, 138.2529];
 const INITIAL_ZOOM_LEVEL = 5;
 
 // --- Global Variables ---
 let mapInstance: L.Map | null = null;
-let analysisMonthElement: HTMLElement | null = null; // Renamed from updateTimeElement
-let monthPickerElement: HTMLInputElement | null = null; // New month picker
+let analysisMonthElement: HTMLElement | null = null;
+let monthPickerElement: HTMLInputElement | null = null;
 let predictButtonElement: HTMLButtonElement | null = null;
+let latestButtonElement: HTMLButtonElement | null = null; // New button element
 
 let gridLayerGroup: L.LayerGroup | null = null;
 let actualQuakesLayerGroup: L.LayerGroup | null = null;
@@ -102,7 +104,7 @@ function addRiskLegend(): void {
     }
     legendControl = new L.Control({ position: 'bottomright' });
     legendControl.onAdd = function () {
-        const div = L.DomUtil.create('div', 'legend legend-risk'); // Removed 'info' class
+        const div = L.DomUtil.create('div', 'legend legend-risk');
         const gradesInfo = [
             { probability: '> 80%', color: getRiskColor(81) },
             { probability: '60% - 80%', color: getRiskColor(61) },
@@ -119,30 +121,26 @@ function addRiskLegend(): void {
     legendControl.addTo(mapInstance);
 }
 
-
 /**
- * Fetches forecast and actual quake data from the backend API for a specific date.
- * @param dateString - The date in YYYY-MM format.
+ * Fetches and processes data from the backend API.
+ * @param apiUrl - The full API URL to fetch data from.
+ * @param contextDescription - A description of the data being fetched (e.g., "YYYY-MM" or "최신") for error messages.
  * @returns A Promise resolving to ApiResponse or null if an error occurs.
  */
-async function fetchPredictionData(dateString: string): Promise<ApiResponse | null> {
-    const apiUrlWithDate = `${API_BASE_URL}?date=${dateString}`;
+async function fetchAndProcessApiData(apiUrl: string, contextDescription: string): Promise<ApiResponse | null> {
     try {
-        const response = await fetch(apiUrlWithDate);
+        const response = await fetch(apiUrl);
         if (!response.ok) {
-            console.error(`API Error: ${response.status} - ${response.statusText} (URL: ${apiUrlWithDate})`);
-            throw new Error(`Failed to fetch data for ${dateString}: HTTP ${response.status}`);
+            const errorText = await response.text();
+            console.error(`API Error: ${response.status} - ${response.statusText} (URL: ${apiUrl}). Body: ${errorText}`);
+            throw new Error(`Failed to fetch data for ${contextDescription}: HTTP ${response.status}`);
         }
         const data: ApiResponse = await response.json();
-
-        if (analysisMonthElement) {
-            analysisMonthElement.textContent = `분석 대상 월: ${data.analyzed_month}`;
-        }
         return data;
     } catch (error) {
-        console.error('Error fetching prediction data:', error);
+        console.error('Error fetching or processing API data:', error);
         if (analysisMonthElement) {
-            analysisMonthElement.textContent = `분석 월 데이터 로딩 오류 (${dateString}).`;
+            analysisMonthElement.textContent = `데이터 로딩 오류 (${contextDescription}).`;
         }
         return null;
     }
@@ -219,19 +217,75 @@ function updateActualQuakesLayer(quakes: ActualQuake[]): void {
     actualQuakesLayerGroup.addTo(mapInstance);
 }
 
+/**
+ * Sets the loading state for UI elements, disabling buttons and showing status.
+ * @param isLoading - True if loading, false otherwise.
+ * @param actionSource - Optional: 'latest' or 'predict' to indicate which button triggered the load.
+ */
+function setLoadingState(isLoading: boolean, actionSource?: 'latest' | 'predict'): void {
+    const defaultPredictText = '해당 시점 예측 보기';
+    const defaultLatestText = '최신 예보 보기';
+    const loadingText = '로딩 중...';
+
+    if (predictButtonElement) {
+        predictButtonElement.disabled = isLoading;
+        if (isLoading && actionSource === 'predict') {
+            predictButtonElement.textContent = loadingText;
+        } else {
+            predictButtonElement.textContent = defaultPredictText;
+        }
+    }
+    if (latestButtonElement) {
+        latestButtonElement.disabled = isLoading;
+        if (isLoading && actionSource === 'latest') {
+            latestButtonElement.textContent = loadingText;
+        } else {
+            latestButtonElement.textContent = defaultLatestText;
+        }
+    }
+}
 
 /**
- * Main application routine to fetch data and update the map for a given date.
- * @param dateString - The date in YYYY-MM format.
+ * Fetches data (either latest or for a specific date) and updates the map.
+ * @param source - 'initial', 'latest', or 'predict'.
+ * @param dateString - The date in YYYY-MM format, required if source is 'predict'.
  */
-async function refreshMapData(dateString: string): Promise<void> {
-    if (predictButtonElement) {
-        predictButtonElement.disabled = true;
-        predictButtonElement.textContent = '로딩 중...';
+async function loadMapData(source: 'initial' | 'latest' | 'predict', dateString?: string): Promise<void> {
+    let apiUrl: string;
+    let contextDescription: string;
+    let actionSource: 'latest' | 'predict' | undefined = undefined;
+
+    if (source === 'initial' || source === 'latest') {
+        apiUrl = API_BASE_URL_LATEST;
+        contextDescription = '최신 예보';
+        if (source === 'latest') actionSource = 'latest';
+    } else if (source === 'predict') {
+        if (!dateString) {
+            if (analysisMonthElement) {
+                analysisMonthElement.textContent = '분석 월을 선택해주세요.';
+            }
+            console.warn('Date string is required for "predict" source.');
+            return;
+        }
+        apiUrl = `${API_BASE_URL_PREDICT_AT}?date=${dateString}`;
+        contextDescription = dateString;
+        actionSource = 'predict';
+    } else {
+        console.error('Invalid source for loadMapData:', source);
+        return;
     }
 
-    const apiResponse = await fetchPredictionData(dateString);
+    setLoadingState(true, actionSource);
+    if (source === 'initial' && analysisMonthElement) {
+        analysisMonthElement.textContent = '최신 데이터 로딩 중...';
+    }
+
+    const apiResponse = await fetchAndProcessApiData(apiUrl, contextDescription);
+
     if (apiResponse) {
+        if (analysisMonthElement) {
+            analysisMonthElement.textContent = `분석 대상 월: ${apiResponse.analyzed_month}`;
+        }
         if (apiResponse.forecasts) {
             updateChoroplethMap(apiResponse.forecasts);
         }
@@ -239,15 +293,14 @@ async function refreshMapData(dateString: string): Promise<void> {
             updateActualQuakesLayer(apiResponse.actual_quakes);
         }
     } else {
-        // Clear layers if data fetch fails for the selected period
+        // Error message is set by fetchAndProcessApiData within analysisMonthElement
         if (gridLayerGroup) gridLayerGroup.clearLayers();
         if (actualQuakesLayerGroup) actualQuakesLayerGroup.clearLayers();
+         if (source === 'initial' && analysisMonthElement && !apiResponse) {
+            // analysisMonthElement already updated with error by fetchAndProcessApiData
+        }
     }
-
-    if (predictButtonElement) {
-        predictButtonElement.disabled = false;
-        predictButtonElement.textContent = '해당 시점 예측 보기';
-    }
+    setLoadingState(false, actionSource);
 }
 
 // --- Application Entry Point ---
@@ -255,40 +308,35 @@ document.addEventListener('DOMContentLoaded', () => {
     analysisMonthElement = document.getElementById('analysis-month') as HTMLElement;
     monthPickerElement = document.getElementById('month-picker') as HTMLInputElement;
     predictButtonElement = document.getElementById('predict-button') as HTMLButtonElement;
+    latestButtonElement = document.getElementById('latest-button') as HTMLButtonElement; // Get the new button
 
     initializeMap();
     if (mapInstance) {
-        addRiskLegend(); // Add legend after map initialization
+        addRiskLegend();
     }
 
-    // Determine initial date (one month ago)
-    const oneMonthAgo = new Date();
-    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
-    const initialYear = oneMonthAgo.getFullYear();
-    const initialMonth = oneMonthAgo.getMonth() + 1; // getMonth() is 0-indexed
-    const initialDateString = `${initialYear}-${String(initialMonth).padStart(2, '0')}`;
+    // Initial data load for the latest forecast
+    loadMapData('initial');
 
-    if (monthPickerElement) {
-        monthPickerElement.value = initialDateString; // Set default value for month picker
-    }
-
-    // Initial data load for one month ago
-    refreshMapData(initialDateString);
-
-    // Event listener for the predict button
+    // Event listener for the '해당 시점 예측 보기' button
     if (predictButtonElement && monthPickerElement) {
         predictButtonElement.addEventListener('click', () => {
-            if (monthPickerElement) { // Ensure element exists
-                const selectedDate = monthPickerElement.value; // Value is YYYY-MM
-                if (selectedDate) { // Check if a date is selected
-                    refreshMapData(selectedDate);
-                } else {
-                    console.warn('Month picker has no value selected.');
-                    if(analysisMonthElement) {
-                        analysisMonthElement.textContent = '분석 월을 선택해주세요.';
-                    }
+            const selectedDate = monthPickerElement!.value; // Value is YYYY-MM
+            if (selectedDate) {
+                loadMapData('predict', selectedDate);
+            } else {
+                if(analysisMonthElement) {
+                    analysisMonthElement.textContent = '분석 월을 선택해주세요.';
                 }
+                console.warn('Month picker has no value selected for predict button.');
             }
+        });
+    }
+
+    // Event listener for the '최신 예보 보기' button
+    if (latestButtonElement) {
+        latestButtonElement.addEventListener('click', () => {
+            loadMapData('latest');
         });
     }
 });
