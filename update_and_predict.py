@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import requests
 import json
 import os
+import time
 
 # --- 0. 전역 설정 ---
 MODEL_PATH = 'earthquake_lstm_model.h5'
@@ -20,15 +21,12 @@ LAT_MIN, LON_MIN = 24, 122
 
 # --- 1. 헬퍼 함수 정의 ---
 def log_message(message):
-    """로그 메시지를 시간과 함께 출력하고 파일에 기록하는 함수"""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = f"[{timestamp}] {message}"
     print(log_entry)
-    with open(LOG_FILE_PATH, 'a', encoding='utf-8') as f:
-        f.write(log_entry + "\n")
+    with open(LOG_FILE_PATH, 'a', encoding='utf-8') as f: f.write(log_entry + "\n")
 
 def calculate_b_value(magnitudes):
-    """b-value를 계산하는 함수"""
     if len(magnitudes) < 30: return np.nan
     min_mag = 2.5
     return 1 / (np.log(10) * (np.mean(magnitudes) - min_mag))
@@ -37,40 +35,51 @@ def calculate_b_value(magnitudes):
 def run_complete_pipeline():
     log_message("===== 자동 업데이트 및 예측 파이프라인 시작 =====")
 
-    # --- 데이터 업데이트 ---
+    # --- 데이터 업데이트 (지능형 다운로더 탑재) ---
     log_message("### 1/4: 데이터 업데이트 시작 ###")
     try:
         if os.path.exists(RAW_DATA_PATH):
+            # --- 업데이트 모드 ---
             df_old = pd.read_csv(RAW_DATA_PATH, parse_dates=['time'])
             start_date = (df_old['time'].max() + timedelta(days=1)).strftime('%Y-%m-%d')
+            end_date = datetime.now().strftime('%Y-%m-%d')
+            if start_date <= end_date:
+                log_message(f"업데이트 모드: {start_date} ~ {end_date} 신규 데이터 요청...")
+                url = f"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&starttime={start_date}&endtime={end_date}&minlatitude=24&maxlatitude=46&minlongitude=122&maxlongitude=148&minmagnitude=2.5"
+                response = requests.get(url, timeout=120); response.raise_for_status(); data = response.json()
+                if data['features']:
+                    new_quakes = [{'time': pd.to_datetime(f['properties']['time'], unit='ms'), 'magnitude': f['properties']['mag'], 'depth': f['geometry']['coordinates'][2], 'longitude': f['geometry']['coordinates'][0], 'latitude': f['geometry']['coordinates'][1], 'location': f['properties']['place']} for f in data['features']]
+                    df_new = pd.DataFrame(new_quakes)
+                    df = pd.concat([df_old, df_new], ignore_index=True).drop_duplicates(subset=['time', 'latitude', 'longitude']).sort_values(by='time')
+                    df.to_csv(RAW_DATA_PATH, index=False, encoding='utf-8-sig')
+                    log_message(f"{len(df_new)}개 신규 데이터 추가. 총 데이터: {len(df)}개")
+                else: log_message("신규 데이터 없음. 기존 데이터를 사용합니다."); df = df_old
+            else: log_message("데이터가 이미 최신입니다. 기존 데이터를 사용합니다."); df = df_old
         else:
-            df_old = pd.DataFrame()
-            start_date = "2000-01-01"
-        end_date = datetime.now().strftime('%Y-%m-%d')
+            # --- 초기 다운로드 모드 ---
+            log_message(f"'{RAW_DATA_PATH}' 파일 없음. 초기 전체 다운로드를 시작합니다 (1년 단위).")
+            all_yearly_data = []
+            START_YEAR = 2000
+            END_YEAR = datetime.now().year
+            for year in tqdm(range(START_YEAR, END_YEAR + 1), desc="초기 데이터 다운로드"):
+                start_of_year = f"{year}-01-01"; end_of_year = f"{year}-12-31"
+                log_message(f"{year}년 데이터 다운로드 중...")
+                url = f"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&starttime={start_of_year}&endtime={end_of_year}&minlatitude=24&maxlatitude=46&minlongitude=122&maxlongitude=148&minmagnitude=2.5"
+                try:
+                    response = requests.get(url, timeout=180); response.raise_for_status(); data = response.json()
+                    if data['features']:
+                        year_quakes = [{'time': pd.to_datetime(f['properties']['time'], unit='ms'), 'magnitude': f['properties']['mag'], 'depth': f['geometry']['coordinates'][2], 'longitude': f['geometry']['coordinates'][0], 'latitude': f['geometry']['coordinates'][1], 'location': f['properties']['place']} for f in data['features']]
+                        all_yearly_data.append(pd.DataFrame(year_quakes))
+                    time.sleep(1) # 서버 부하 방지
+                except Exception as e: log_message(f"{year}년 데이터 다운로드 실패: {e}")
+            df = pd.concat(all_yearly_data, ignore_index=True).sort_values(by='time')
+            df.to_csv(RAW_DATA_PATH, index=False, encoding='utf-8-sig')
+            log_message(f"초기 다운로드 완료. 총 {len(df)}개의 데이터를 저장했습니다.")
+    except Exception as e: log_message(f"오류: 데이터 업데이트 실패 - {e}"); return
         
-        if start_date <= end_date:
-            log_message(f"USGS에서 {start_date} ~ {end_date} 신규 데이터 요청...")
-            url = f"https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&starttime={start_date}&endtime={end_date}&minlatitude=24&maxlatitude=46&minlongitude=122&maxlongitude=148&minmagnitude=2.5"
-            response = requests.get(url, timeout=120)
-            response.raise_for_status()
-            data = response.json()
-            if data['features']:
-                new_quakes = [{'time': pd.to_datetime(f['properties']['time'], unit='ms'), 'magnitude': f['properties']['mag'], 'depth': f['geometry']['coordinates'][2], 'longitude': f['geometry']['coordinates'][0], 'latitude': f['geometry']['coordinates'][1], 'location': f['properties']['place']} for f in data['features']]
-                df_new = pd.DataFrame(new_quakes)
-                df = pd.concat([df_old, df_new], ignore_index=True).drop_duplicates(subset=['time', 'latitude', 'longitude']).sort_values(by='time')
-                df.to_csv(RAW_DATA_PATH, index=False, encoding='utf-8-sig')
-                log_message(f"{len(df_new)}개 신규 데이터 추가. 총 데이터: {len(df)}개")
-            else:
-                log_message("신규 데이터 없음. 기존 데이터 사용.")
-                df = df_old
-        else:
-             log_message("데이터가 이미 최신입니다. 기존 데이터를 사용합니다.")
-             df = df_old
-    except Exception as e:
-        log_message(f"오류: 데이터 업데이트 실패 - {e}"); return
-        
-    # --- 특징 생성 ---
+    # 이하 AI 예측 로직은 이전과 동일
     log_message("### 2/4: 특징 생성 시작 ###")
+    # ... (이하 모든 코드는 이전과 완전히 동일합니다)
     df['grid_id'] = (pd.cut(df['latitude'], bins=np.arange(LAT_MIN, 47.1, GRID_SIZE), labels=False, include_lowest=True).astype(str) + '_' + pd.cut(df['longitude'], bins=np.arange(LON_MIN, 148.1, GRID_SIZE), labels=False, include_lowest=True).astype(str))
     df.dropna(subset=['grid_id'], inplace=True)
     df = df.set_index('time').sort_index()
@@ -90,14 +99,9 @@ def run_complete_pipeline():
             feature_rows.append(new_row)
     features_df = pd.DataFrame(feature_rows).dropna(subset=['b_value']).copy()
     features_df['days_since_last_quake'].fillna(9999, inplace=True)
-
-    # --- AI 예측 ---
     log_message("### 3/4: AI 예측 시작 ###")
-    try:
-        model = tf.keras.models.load_model(MODEL_PATH)
-        scaler = joblib.load(SCALER_PATH)
-    except Exception as e:
-        log_message(f"오류: 모델/스케일러 로드 실패 - {e}"); return
+    model = tf.keras.models.load_model(MODEL_PATH)
+    scaler = joblib.load(SCALER_PATH)
     features_to_scale = ['count', 'mean', 'count_3m_avg', 'count_6m_avg', 'count_12m_avg', 'b_value', 'days_since_last_quake']
     predict_data = features_df.groupby('grid_id').tail(SEQUENCE_LENGTH)
     valid_grids = predict_data.groupby('grid_id').filter(lambda x: len(x) == SEQUENCE_LENGTH)
@@ -109,8 +113,6 @@ def run_complete_pipeline():
         latest_features_for_grids[grid_id] = grid_data.iloc[-1]
     X_predict = np.array(X_predict)
     predictions = model.predict(X_predict, verbose=0)
-
-    # --- 결과 저장 ---
     log_message("### 4/4: 최종 결과 저장 ###")
     forecast_list = []
     for i, grid_id in enumerate(grid_ids_to_predict):
@@ -129,4 +131,4 @@ def run_complete_pipeline():
     log_message("===== 파이프라인 종료 =====")
 
 if __name__ == "__main__":
-    run_complete_pipeline()
+    run_complete_pipeline() 
