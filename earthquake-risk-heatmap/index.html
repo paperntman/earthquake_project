@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지진 위험 단계 구분도</title>
+    <script type="module" src="/index.tsx"></script>
+<script type="importmap">
+{
+  "imports": {
+    "leaflet": "https://esm.sh/leaflet@^1.9.4",
+    "leaflet/": "https://esm.sh/leaflet@^1.9.4/",
+    "leaflet.heat": "https://esm.sh/leaflet.heat@^0.2.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="info-panel">
+        <h1>지진 위험 단계 구분도</h1>
+        <p><span id="update-time" aria-live="polite">데이터 로딩 중...</span></p>
+    </div>
+    <div id="map"></div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+*.Identifier
+/venv
+/venv
+*.csv
+*.log

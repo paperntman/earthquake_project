@@ -1,0 +1,1643 @@
+{
+  "update_time": "2025-06-16 03:09:25",
+  "forecasts": [
+    {
+      "grid_id": "14_40",
+      "bounds": [
+        [
+          31.0,
+          142.0
+        ],
+        [
+          31.5,
+          142.5
+        ]
+      ],
+      "risk_probability": 44.2,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 5.42,
+        "b_value": 0.22,
+        "days_since_last_quake": 178
+      }
+    },
+    {
+      "grid_id": "17_17",
+      "bounds": [
+        [
+          32.5,
+          130.5
+        ],
+        [
+          33.0,
+          131.0
+        ]
+      ],
+      "risk_probability": 50.02,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 6.25,
+        "b_value": 0.2,
+        "days_since_last_quake": 127
+      }
+    },
+    {
+      "grid_id": "17_40",
+      "bounds": [
+        [
+          32.5,
+          142.0
+        ],
+        [
+          33.0,
+          142.5
+        ]
+      ],
+      "risk_probability": 44.38,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.33,
+        "b_value": 0.21,
+        "days_since_last_quake": 38
+      }
+    },
+    {
+      "grid_id": "18_29",
+      "bounds": [
+        [
+          33.0,
+          136.5
+        ],
+        [
+          33.5,
+          137.0
+        ]
+      ],
+      "risk_probability": 54.43,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.5,
+        "b_value": 0.22,
+        "days_since_last_quake": 130
+      }
+    },
+    {
+      "grid_id": "18_30",
+      "bounds": [
+        [
+          33.0,
+          137.0
+        ],
+        [
+          33.5,
+          137.5
+        ]
+      ],
+      "risk_probability": 55.71,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.58,
+        "b_value": 0.22,
+        "days_since_last_quake": 137
+      }
+    },
+    {
+      "grid_id": "18_40",
+      "bounds": [
+        [
+          33.0,
+          142.0
+        ],
+        [
+          33.5,
+          142.5
+        ]
+      ],
+      "risk_probability": 42.89,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.25,
+        "b_value": 0.26,
+        "days_since_last_quake": 146
+      }
+    },
+    {
+      "grid_id": "19_34",
+      "bounds": [
+        [
+          33.5,
+          139.0
+        ],
+        [
+          34.0,
+          139.5
+        ]
+      ],
+      "risk_probability": 23.4,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.5,
+        "b_value": 0.26,
+        "days_since_last_quake": 300
+      }
+    },
+    {
+      "grid_id": "1_0",
+      "bounds": [
+        [
+          24.5,
+          122.0
+        ],
+        [
+          25.0,
+          122.5
+        ]
+      ],
+      "risk_probability": 67.58,
+      "details": {
+        "count": 2,
+        "mean": 4.3,
+        "count_12m_avg": 3.42,
+        "b_value": 0.22,
+        "days_since_last_quake": 3
+      }
+    },
+    {
+      "grid_id": "1_1",
+      "bounds": [
+        [
+          24.5,
+          122.5
+        ],
+        [
+          25.0,
+          123.0
+        ]
+      ],
+      "risk_probability": 41.12,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 5.5,
+        "b_value": 0.23,
+        "days_since_last_quake": 204
+      }
+    },
+    {
+      "grid_id": "1_2",
+      "bounds": [
+        [
+          24.5,
+          123.0
+        ],
+        [
+          25.0,
+          123.5
+        ]
+      ],
+      "risk_probability": 42.99,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.25,
+        "b_value": 0.22,
+        "days_since_last_quake": 198
+      }
+    },
+    {
+      "grid_id": "20_34",
+      "bounds": [
+        [
+          34.0,
+          139.0
+        ],
+        [
+          34.5,
+          139.5
+        ]
+      ],
+      "risk_probability": 11.95,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 12.67,
+        "b_value": 0.22,
+        "days_since_last_quake": 33
+      }
+    },
+    {
+      "grid_id": "20_35",
+      "bounds": [
+        [
+          34.0,
+          139.5
+        ],
+        [
+          34.5,
+          140.0
+        ]
+      ],
+      "risk_probability": 36.49,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.83,
+        "b_value": 0.27,
+        "days_since_last_quake": 97
+      }
+    },
+    {
+      "grid_id": "20_39",
+      "bounds": [
+        [
+          34.0,
+          141.5
+        ],
+        [
+          34.5,
+          142.0
+        ]
+      ],
+      "risk_probability": 37.28,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.67,
+        "b_value": 0.2,
+        "days_since_last_quake": 309
+      }
+    },
+    {
+      "grid_id": "22_38",
+      "bounds": [
+        [
+          35.0,
+          141.0
+        ],
+        [
+          35.5,
+          141.5
+        ]
+      ],
+      "risk_probability": 65.66,
+      "details": {
+        "count": 3,
+        "mean": 4.73,
+        "count_12m_avg": 3.0,
+        "b_value": 0.21,
+        "days_since_last_quake": 26
+      }
+    },
+    {
+      "grid_id": "23_37",
+      "bounds": [
+        [
+          35.5,
+          140.5
+        ],
+        [
+          36.0,
+          141.0
+        ]
+      ],
+      "risk_probability": 66.5,
+      "details": {
+        "count": 1,
+        "mean": 4.5,
+        "count_12m_avg": 2.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 23
+      }
+    },
+    {
+      "grid_id": "23_38",
+      "bounds": [
+        [
+          35.5,
+          141.0
+        ],
+        [
+          36.0,
+          141.5
+        ]
+      ],
+      "risk_probability": 65.77,
+      "details": {
+        "count": 2,
+        "mean": 4.55,
+        "count_12m_avg": 6.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 0
+      }
+    },
+    {
+      "grid_id": "23_39",
+      "bounds": [
+        [
+          35.5,
+          141.5
+        ],
+        [
+          36.0,
+          142.0
+        ]
+      ],
+      "risk_probability": 47.07,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 7.0,
+        "b_value": 0.19,
+        "days_since_last_quake": 103
+      }
+    },
+    {
+      "grid_id": "24_38",
+      "bounds": [
+        [
+          36.0,
+          141.0
+        ],
+        [
+          36.5,
+          141.5
+        ]
+      ],
+      "risk_probability": 53.98,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.0,
+        "b_value": 0.21,
+        "days_since_last_quake": 31
+      }
+    },
+    {
+      "grid_id": "24_39",
+      "bounds": [
+        [
+          36.0,
+          141.5
+        ],
+        [
+          36.5,
+          142.0
+        ]
+      ],
+      "risk_probability": 44.87,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 143
+      }
+    },
+    {
+      "grid_id": "24_40",
+      "bounds": [
+        [
+          36.0,
+          142.0
+        ],
+        [
+          36.5,
+          142.5
+        ]
+      ],
+      "risk_probability": 55.1,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.75,
+        "b_value": 0.21,
+        "days_since_last_quake": 31
+      }
+    },
+    {
+      "grid_id": "24_41",
+      "bounds": [
+        [
+          36.0,
+          142.5
+        ],
+        [
+          36.5,
+          143.0
+        ]
+      ],
+      "risk_probability": 49.03,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.42,
+        "b_value": 0.23,
+        "days_since_last_quake": 170
+      }
+    },
+    {
+      "grid_id": "24_42",
+      "bounds": [
+        [
+          36.0,
+          143.0
+        ],
+        [
+          36.5,
+          143.5
+        ]
+      ],
+      "risk_probability": 45.72,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.75,
+        "b_value": 0.22,
+        "days_since_last_quake": 187
+      }
+    },
+    {
+      "grid_id": "25_36",
+      "bounds": [
+        [
+          36.5,
+          140.0
+        ],
+        [
+          37.0,
+          140.5
+        ]
+      ],
+      "risk_probability": 68.43,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.58,
+        "b_value": 0.21,
+        "days_since_last_quake": 43
+      }
+    },
+    {
+      "grid_id": "25_37",
+      "bounds": [
+        [
+          36.5,
+          140.5
+        ],
+        [
+          37.0,
+          141.0
+        ]
+      ],
+      "risk_probability": 61.41,
+      "details": {
+        "count": 1,
+        "mean": 4.3,
+        "count_12m_avg": 2.5,
+        "b_value": 0.21,
+        "days_since_last_quake": 21
+      }
+    },
+    {
+      "grid_id": "25_38",
+      "bounds": [
+        [
+          36.5,
+          141.0
+        ],
+        [
+          37.0,
+          141.5
+        ]
+      ],
+      "risk_probability": 68.97,
+      "details": {
+        "count": 1,
+        "mean": 4.4,
+        "count_12m_avg": 2.5,
+        "b_value": 0.21,
+        "days_since_last_quake": 1
+      }
+    },
+    {
+      "grid_id": "25_39",
+      "bounds": [
+        [
+          36.5,
+          141.5
+        ],
+        [
+          37.0,
+          142.0
+        ]
+      ],
+      "risk_probability": 54.88,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.08,
+        "b_value": 0.21,
+        "days_since_last_quake": 78
+      }
+    },
+    {
+      "grid_id": "25_40",
+      "bounds": [
+        [
+          36.5,
+          142.0
+        ],
+        [
+          37.0,
+          142.5
+        ]
+      ],
+      "risk_probability": 62.57,
+      "details": {
+        "count": 1,
+        "mean": 4.5,
+        "count_12m_avg": 2.75,
+        "b_value": 0.21,
+        "days_since_last_quake": 5
+      }
+    },
+    {
+      "grid_id": "25_41",
+      "bounds": [
+        [
+          36.5,
+          142.5
+        ],
+        [
+          37.0,
+          143.0
+        ]
+      ],
+      "risk_probability": 43.27,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.25,
+        "b_value": 0.2,
+        "days_since_last_quake": 176
+      }
+    },
+    {
+      "grid_id": "25_42",
+      "bounds": [
+        [
+          36.5,
+          143.0
+        ],
+        [
+          37.0,
+          143.5
+        ]
+      ],
+      "risk_probability": 51.68,
+      "details": {
+        "count": 1,
+        "mean": 4.8,
+        "count_12m_avg": 4.42,
+        "b_value": 0.2,
+        "days_since_last_quake": 25
+      }
+    },
+    {
+      "grid_id": "25_43",
+      "bounds": [
+        [
+          36.5,
+          143.5
+        ],
+        [
+          37.0,
+          144.0
+        ]
+      ],
+      "risk_probability": 55.71,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 5.67,
+        "b_value": 0.21,
+        "days_since_last_quake": 139
+      }
+    },
+    {
+      "grid_id": "26_29",
+      "bounds": [
+        [
+          37.0,
+          136.5
+        ],
+        [
+          37.5,
+          137.0
+        ]
+      ],
+      "risk_probability": 38.68,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.5,
+        "b_value": 0.21,
+        "days_since_last_quake": 293
+      }
+    },
+    {
+      "grid_id": "26_33",
+      "bounds": [
+        [
+          37.0,
+          138.5
+        ],
+        [
+          37.5,
+          139.0
+        ]
+      ],
+      "risk_probability": 67.25,
+      "details": {
+        "count": 1,
+        "mean": 4.0,
+        "count_12m_avg": 7.67,
+        "b_value": 0.21,
+        "days_since_last_quake": 20
+      }
+    },
+    {
+      "grid_id": "26_37",
+      "bounds": [
+        [
+          37.0,
+          140.5
+        ],
+        [
+          37.5,
+          141.0
+        ]
+      ],
+      "risk_probability": 57.75,
+      "details": {
+        "count": 1,
+        "mean": 5.7,
+        "count_12m_avg": 2.58,
+        "b_value": 0.19,
+        "days_since_last_quake": 28
+      }
+    },
+    {
+      "grid_id": "26_38",
+      "bounds": [
+        [
+          37.0,
+          141.0
+        ],
+        [
+          37.5,
+          141.5
+        ]
+      ],
+      "risk_probability": 66.25,
+      "details": {
+        "count": 2,
+        "mean": 4.7,
+        "count_12m_avg": 2.58,
+        "b_value": 0.21,
+        "days_since_last_quake": 12
+      }
+    },
+    {
+      "grid_id": "26_39",
+      "bounds": [
+        [
+          37.0,
+          141.5
+        ],
+        [
+          37.5,
+          142.0
+        ]
+      ],
+      "risk_probability": 66.82,
+      "details": {
+        "count": 2,
+        "mean": 4.65,
+        "count_12m_avg": 4.08,
+        "b_value": 0.21,
+        "days_since_last_quake": 6
+      }
+    },
+    {
+      "grid_id": "26_40",
+      "bounds": [
+        [
+          37.0,
+          142.0
+        ],
+        [
+          37.5,
+          142.5
+        ]
+      ],
+      "risk_probability": 56.61,
+      "details": {
+        "count": 1,
+        "mean": 4.8,
+        "count_12m_avg": 4.0,
+        "b_value": 0.21,
+        "days_since_last_quake": 27
+      }
+    },
+    {
+      "grid_id": "26_41",
+      "bounds": [
+        [
+          37.0,
+          142.5
+        ],
+        [
+          37.5,
+          143.0
+        ]
+      ],
+      "risk_probability": 53.6,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.83,
+        "b_value": 0.22,
+        "days_since_last_quake": 143
+      }
+    },
+    {
+      "grid_id": "26_42",
+      "bounds": [
+        [
+          37.0,
+          143.0
+        ],
+        [
+          37.5,
+          143.5
+        ]
+      ],
+      "risk_probability": 43.05,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 226
+      }
+    },
+    {
+      "grid_id": "26_43",
+      "bounds": [
+        [
+          37.0,
+          143.5
+        ],
+        [
+          37.5,
+          144.0
+        ]
+      ],
+      "risk_probability": 40.89,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.0,
+        "b_value": 0.21,
+        "days_since_last_quake": 34
+      }
+    },
+    {
+      "grid_id": "26_44",
+      "bounds": [
+        [
+          37.0,
+          144.0
+        ],
+        [
+          37.5,
+          144.5
+        ]
+      ],
+      "risk_probability": 57.22,
+      "details": {
+        "count": 2,
+        "mean": 4.85,
+        "count_12m_avg": 3.25,
+        "b_value": 0.22,
+        "days_since_last_quake": 28
+      }
+    },
+    {
+      "grid_id": "27_39",
+      "bounds": [
+        [
+          37.5,
+          141.5
+        ],
+        [
+          38.0,
+          142.0
+        ]
+      ],
+      "risk_probability": 72.75,
+      "details": {
+        "count": 3,
+        "mean": 4.2,
+        "count_12m_avg": 2.67,
+        "b_value": 0.22,
+        "days_since_last_quake": 9
+      }
+    },
+    {
+      "grid_id": "27_40",
+      "bounds": [
+        [
+          37.5,
+          142.0
+        ],
+        [
+          38.0,
+          142.5
+        ]
+      ],
+      "risk_probability": 70.96,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 5.42,
+        "b_value": 0.2,
+        "days_since_last_quake": 31
+      }
+    },
+    {
+      "grid_id": "27_41",
+      "bounds": [
+        [
+          37.5,
+          142.5
+        ],
+        [
+          38.0,
+          143.0
+        ]
+      ],
+      "risk_probability": 57.91,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 8.58,
+        "b_value": 0.2,
+        "days_since_last_quake": 111
+      }
+    },
+    {
+      "grid_id": "27_42",
+      "bounds": [
+        [
+          37.5,
+          143.0
+        ],
+        [
+          38.0,
+          143.5
+        ]
+      ],
+      "risk_probability": 51.86,
+      "details": {
+        "count": 1,
+        "mean": 4.4,
+        "count_12m_avg": 7.42,
+        "b_value": 0.2,
+        "days_since_last_quake": 21
+      }
+    },
+    {
+      "grid_id": "27_43",
+      "bounds": [
+        [
+          37.5,
+          143.5
+        ],
+        [
+          38.0,
+          144.0
+        ]
+      ],
+      "risk_probability": 67.53,
+      "details": {
+        "count": 1,
+        "mean": 4.6,
+        "count_12m_avg": 10.75,
+        "b_value": 0.21,
+        "days_since_last_quake": 17
+      }
+    },
+    {
+      "grid_id": "27_44",
+      "bounds": [
+        [
+          37.5,
+          144.0
+        ],
+        [
+          38.0,
+          144.5
+        ]
+      ],
+      "risk_probability": 31.44,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.33,
+        "b_value": 0.22,
+        "days_since_last_quake": 41
+      }
+    },
+    {
+      "grid_id": "27_45",
+      "bounds": [
+        [
+          37.5,
+          144.5
+        ],
+        [
+          38.0,
+          145.0
+        ]
+      ],
+      "risk_probability": 65.6,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.75,
+        "b_value": 0.21,
+        "days_since_last_quake": 33
+      }
+    },
+    {
+      "grid_id": "28_39",
+      "bounds": [
+        [
+          38.0,
+          141.5
+        ],
+        [
+          38.5,
+          142.0
+        ]
+      ],
+      "risk_probability": 67.64,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 31
+      }
+    },
+    {
+      "grid_id": "28_40",
+      "bounds": [
+        [
+          38.0,
+          142.0
+        ],
+        [
+          38.5,
+          142.5
+        ]
+      ],
+      "risk_probability": 67.48,
+      "details": {
+        "count": 1,
+        "mean": 4.5,
+        "count_12m_avg": 2.75,
+        "b_value": 0.21,
+        "days_since_last_quake": 27
+      }
+    },
+    {
+      "grid_id": "28_41",
+      "bounds": [
+        [
+          38.0,
+          142.5
+        ],
+        [
+          38.5,
+          143.0
+        ]
+      ],
+      "risk_probability": 48.04,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 5.0,
+        "b_value": 0.19,
+        "days_since_last_quake": 83
+      }
+    },
+    {
+      "grid_id": "28_42",
+      "bounds": [
+        [
+          38.0,
+          143.0
+        ],
+        [
+          38.5,
+          143.5
+        ]
+      ],
+      "risk_probability": 45.71,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 5.0,
+        "b_value": 0.19,
+        "days_since_last_quake": 75
+      }
+    },
+    {
+      "grid_id": "28_43",
+      "bounds": [
+        [
+          38.0,
+          143.5
+        ],
+        [
+          38.5,
+          144.0
+        ]
+      ],
+      "risk_probability": 55.76,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.33,
+        "b_value": 0.21,
+        "days_since_last_quake": 125
+      }
+    },
+    {
+      "grid_id": "28_44",
+      "bounds": [
+        [
+          38.0,
+          144.0
+        ],
+        [
+          38.5,
+          144.5
+        ]
+      ],
+      "risk_probability": 61.65,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.58,
+        "b_value": 0.21,
+        "days_since_last_quake": 55
+      }
+    },
+    {
+      "grid_id": "28_45",
+      "bounds": [
+        [
+          38.0,
+          144.5
+        ],
+        [
+          38.5,
+          145.0
+        ]
+      ],
+      "risk_probability": 69.56,
+      "details": {
+        "count": 1,
+        "mean": 4.7,
+        "count_12m_avg": 5.25,
+        "b_value": 0.21,
+        "days_since_last_quake": 20
+      }
+    },
+    {
+      "grid_id": "29_37",
+      "bounds": [
+        [
+          38.5,
+          140.5
+        ],
+        [
+          39.0,
+          141.0
+        ]
+      ],
+      "risk_probability": 44.2,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.42,
+        "b_value": 0.28,
+        "days_since_last_quake": 147
+      }
+    },
+    {
+      "grid_id": "29_39",
+      "bounds": [
+        [
+          38.5,
+          141.5
+        ],
+        [
+          39.0,
+          142.0
+        ]
+      ],
+      "risk_probability": 62.45,
+      "details": {
+        "count": 3,
+        "mean": 5.23,
+        "count_12m_avg": 3.0,
+        "b_value": 0.19,
+        "days_since_last_quake": 3
+      }
+    },
+    {
+      "grid_id": "29_40",
+      "bounds": [
+        [
+          38.5,
+          142.0
+        ],
+        [
+          39.0,
+          142.5
+        ]
+      ],
+      "risk_probability": 69.67,
+      "details": {
+        "count": 1,
+        "mean": 4.7,
+        "count_12m_avg": 2.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 19
+      }
+    },
+    {
+      "grid_id": "29_41",
+      "bounds": [
+        [
+          38.5,
+          142.5
+        ],
+        [
+          39.0,
+          143.0
+        ]
+      ],
+      "risk_probability": 47.96,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.92,
+        "b_value": 0.2,
+        "days_since_last_quake": 73
+      }
+    },
+    {
+      "grid_id": "29_42",
+      "bounds": [
+        [
+          38.5,
+          143.0
+        ],
+        [
+          39.0,
+          143.5
+        ]
+      ],
+      "risk_probability": 42.58,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.33,
+        "b_value": 0.19,
+        "days_since_last_quake": 219
+      }
+    },
+    {
+      "grid_id": "29_44",
+      "bounds": [
+        [
+          38.5,
+          144.0
+        ],
+        [
+          39.0,
+          144.5
+        ]
+      ],
+      "risk_probability": 42.07,
+      "details": {
+        "count": 1,
+        "mean": 5.2,
+        "count_12m_avg": 4.92,
+        "b_value": 0.21,
+        "days_since_last_quake": 16
+      }
+    },
+    {
+      "grid_id": "2_3",
+      "bounds": [
+        [
+          25.0,
+          123.5
+        ],
+        [
+          25.5,
+          124.0
+        ]
+      ],
+      "risk_probability": 38.88,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.67,
+        "b_value": 0.2,
+        "days_since_last_quake": 275
+      }
+    },
+    {
+      "grid_id": "30_37",
+      "bounds": [
+        [
+          39.0,
+          140.5
+        ],
+        [
+          39.5,
+          141.0
+        ]
+      ],
+      "risk_probability": 42.86,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 8.25,
+        "b_value": 0.26,
+        "days_since_last_quake": 158
+      }
+    },
+    {
+      "grid_id": "30_40",
+      "bounds": [
+        [
+          39.0,
+          142.0
+        ],
+        [
+          39.5,
+          142.5
+        ]
+      ],
+      "risk_probability": 55.01,
+      "details": {
+        "count": 3,
+        "mean": 4.63,
+        "count_12m_avg": 2.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 1
+      }
+    },
+    {
+      "grid_id": "30_41",
+      "bounds": [
+        [
+          39.0,
+          142.5
+        ],
+        [
+          39.5,
+          143.0
+        ]
+      ],
+      "risk_probability": 45.74,
+      "details": {
+        "count": 2,
+        "mean": 4.6,
+        "count_12m_avg": 5.67,
+        "b_value": 0.19,
+        "days_since_last_quake": 18
+      }
+    },
+    {
+      "grid_id": "30_42",
+      "bounds": [
+        [
+          39.0,
+          143.0
+        ],
+        [
+          39.5,
+          143.5
+        ]
+      ],
+      "risk_probability": 45.54,
+      "details": {
+        "count": 1,
+        "mean": 4.0,
+        "count_12m_avg": 4.5,
+        "b_value": 0.2,
+        "days_since_last_quake": 22
+      }
+    },
+    {
+      "grid_id": "31_42",
+      "bounds": [
+        [
+          39.5,
+          143.0
+        ],
+        [
+          40.0,
+          143.5
+        ]
+      ],
+      "risk_probability": 56.58,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.25,
+        "b_value": 0.2,
+        "days_since_last_quake": 81
+      }
+    },
+    {
+      "grid_id": "31_43",
+      "bounds": [
+        [
+          39.5,
+          143.5
+        ],
+        [
+          40.0,
+          144.0
+        ]
+      ],
+      "risk_probability": 61.73,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.75,
+        "b_value": 0.21,
+        "days_since_last_quake": 90
+      }
+    },
+    {
+      "grid_id": "33_45",
+      "bounds": [
+        [
+          40.5,
+          144.5
+        ],
+        [
+          41.0,
+          145.0
+        ]
+      ],
+      "risk_probability": 41.67,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.08,
+        "b_value": 0.2,
+        "days_since_last_quake": 221
+      }
+    },
+    {
+      "grid_id": "36_45",
+      "bounds": [
+        [
+          42.0,
+          144.5
+        ],
+        [
+          42.5,
+          145.0
+        ]
+      ],
+      "risk_probability": 52.96,
+      "details": {
+        "count": 1,
+        "mean": 4.3,
+        "count_12m_avg": 2.92,
+        "b_value": 0.19,
+        "days_since_last_quake": 7
+      }
+    },
+    {
+      "grid_id": "37_39",
+      "bounds": [
+        [
+          42.5,
+          141.5
+        ],
+        [
+          43.0,
+          142.0
+        ]
+      ],
+      "risk_probability": 58.16,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.58,
+        "b_value": 0.21,
+        "days_since_last_quake": 91
+      }
+    },
+    {
+      "grid_id": "3_12",
+      "bounds": [
+        [
+          25.5,
+          128.0
+        ],
+        [
+          26.0,
+          128.5
+        ]
+      ],
+      "risk_probability": 50.74,
+      "details": {
+        "count": 4,
+        "mean": 4.97,
+        "count_12m_avg": 2.17,
+        "b_value": 0.22,
+        "days_since_last_quake": 11
+      }
+    },
+    {
+      "grid_id": "5_15",
+      "bounds": [
+        [
+          26.5,
+          129.5
+        ],
+        [
+          27.0,
+          130.0
+        ]
+      ],
+      "risk_probability": 44.56,
+      "details": {
+        "count": 1,
+        "mean": 4.2,
+        "count_12m_avg": 4.25,
+        "b_value": 0.2,
+        "days_since_last_quake": 2
+      }
+    },
+    {
+      "grid_id": "5_42",
+      "bounds": [
+        [
+          26.5,
+          143.0
+        ],
+        [
+          27.0,
+          143.5
+        ]
+      ],
+      "risk_probability": 44.87,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.25,
+        "b_value": 0.21,
+        "days_since_last_quake": 162
+      }
+    },
+    {
+      "grid_id": "5_43",
+      "bounds": [
+        [
+          26.5,
+          143.5
+        ],
+        [
+          27.0,
+          144.0
+        ]
+      ],
+      "risk_probability": 20.29,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.83,
+        "b_value": 0.21,
+        "days_since_last_quake": 79
+      }
+    },
+    {
+      "grid_id": "5_44",
+      "bounds": [
+        [
+          26.5,
+          144.0
+        ],
+        [
+          27.0,
+          144.5
+        ]
+      ],
+      "risk_probability": 66.77,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 4.92,
+        "b_value": 0.22,
+        "days_since_last_quake": 32
+      }
+    },
+    {
+      "grid_id": "5_8",
+      "bounds": [
+        [
+          26.5,
+          126.0
+        ],
+        [
+          27.0,
+          126.5
+        ]
+      ],
+      "risk_probability": 42.17,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 2.92,
+        "b_value": 0.22,
+        "days_since_last_quake": 199
+      }
+    },
+    {
+      "grid_id": "6_42",
+      "bounds": [
+        [
+          27.0,
+          143.0
+        ],
+        [
+          27.5,
+          143.5
+        ]
+      ],
+      "risk_probability": 20.84,
+      "details": {
+        "count": 0,
+        "mean": 0.0,
+        "count_12m_avg": 3.42,
+        "b_value": 0.2,
+        "days_since_last_quake": 59
+      }
+    },
+    {
+      "grid_id": "6_43",
+      "bounds": [
+        [
+          27.0,
+          143.5
+        ],
+        [
+          27.5,
+          144.0
+        ]
+      ],
+      "risk_probability": 17.93,
+      "details": {
+        "count": 7,
+        "mean": 4.53,
+        "count_12m_avg": 2.5,
+        "b_value": 0.22,
+        "days_since_last_quake": 21
+      }
+    }
+  ]
+}

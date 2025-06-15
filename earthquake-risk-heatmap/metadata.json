@@ -1,0 +1,6 @@
+{
+  "name": "Earthquake Risk Heatmap",
+  "description": "Displays earthquake risk data from a backend API as a heatmap on a Leaflet map. The data auto-refreshes every 5 minutes.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
