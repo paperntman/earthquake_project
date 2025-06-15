@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>지진 위험 단계 구분도</title>
+    <title>지진 위험 분석 도구 (타임머신)</title>
     <script type="module" src="/index.tsx"></script>
 <script type="importmap">
 {
@@ -18,7 +18,14 @@
 </head>
 <body>
     <div class="info-panel">
-        <h1>지진 위험 단계 구분도</h1>
+        <h1>지진 위험 분석 도구</h1>
+        <div class="time-controls">
+            <label for="year-select">연도:</label>
+            <select id="year-select" aria-label="연도 선택"></select>
+            <label for="month-select">월:</label>
+            <select id="month-select" aria-label="월 선택"></select>
+            <button id="predict-button" type="button">해당 시점 예측 보기</button>
+        </div>
         <p><span id="update-time" aria-live="polite">데이터 로딩 중...</span></p>
     </div>
     <div id="map"></div>
