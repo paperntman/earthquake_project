@@ -68,7 +68,7 @@ def run_precomputation():
             feature_rows.append(new_row)
 
     final_features_df = pd.DataFrame(feature_rows)
-    # 🚨 여기가 수정된 부분: b_value가 NaN이어도 버리지 않고, 경과일만 채운다!
+    final_features_df.dropna(subset=['b_value'], inplace=True)
     final_features_df['days_since_last_quake'].fillna(9999, inplace=True)
     
     final_features_df['time'] = final_features_df['time'].dt.strftime('%Y-%m-%d')
