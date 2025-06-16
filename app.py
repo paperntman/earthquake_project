@@ -59,10 +59,15 @@ def predict_at_date():
 
     try:
         # 2. 예측에 필요한 기간 계산
-        target_month_end = pd.to_datetime(target_month_str + '-01').to_period('M').end_time
+        prediction_base_date = pd.to_datetime(target_month_str + '-01') - pd.DateOffset(days=1)
+        
+        # 이 날짜가 이제 특징을 가져오는 기간의 마지막이 됨
+        target_month_end = prediction_base_date 
+        
+        # LSTM 시퀀스 길이를 고려하여 시작 기간 계산
         start_period = target_month_end - pd.DateOffset(months=SEQUENCE_LENGTH - 1)
         
-        # 3. 데이터베이스에서 필요한 특징 데이터 조회
+        # 3. 데이터베이스에서 필요한 특징 데이터 조회 (기간이 한 달 앞당겨짐)
         conn = sqlite3.connect(f'file:{DB_PATH}?mode=ro', uri=True)
         query = f"""
             SELECT * FROM monthly_features 
